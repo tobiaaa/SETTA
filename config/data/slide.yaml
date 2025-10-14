@@ -1,0 +1,7 @@
+defaults:
+  - defaults
+  - dataset: voicebank
+  - _self_
+batch_size: 32
+mode: sliding_window
+sample_length: 1.024

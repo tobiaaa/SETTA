@@ -1,0 +1,4 @@
+name: EARS_DEMAND
+path: "data/EARS_16/"
+noise_path: "data/DEMAND/"
+snr: null

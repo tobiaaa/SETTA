@@ -1,0 +1,12 @@
+name: gan
+gen_lr: 1e-4
+gen_lr_sched:
+  name: exp
+  gamma: 0.975
+disc_lr: 1e-4
+disc_lr_sched:
+  name: exp
+  gamma: 0.975
+loss: "SEGAN"
+gan_loss: True
+fs: ${data.fs}

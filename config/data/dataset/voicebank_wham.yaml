@@ -1,0 +1,4 @@
+name: VoiceBankWHAM
+path: "data/VBD_16/"
+noise_path: "data/WHAM_16/"
+snr: null

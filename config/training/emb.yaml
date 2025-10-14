@@ -1,0 +1,5 @@
+name: emb
+save_path: /no_backups/m153/embs/
+save_embs: False
+save: True
+checkpoint_freq: null

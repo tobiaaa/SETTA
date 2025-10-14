@@ -1,0 +1,13 @@
+defaults:
+  - defaults
+  - model: emb_approx
+  - override training: emb
+  - override eval: emb
+  - _self_
+training:
+  epochs: 1
+data:
+  transforms:
+    - identity
+metrics:
+  - EmbSim

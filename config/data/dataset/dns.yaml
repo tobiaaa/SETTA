@@ -1,0 +1,6 @@
+name: DNS
+path: "data/DNS/repo/datasets/"
+shuff_lang: True
+max_len: 10
+languages:
+  - english

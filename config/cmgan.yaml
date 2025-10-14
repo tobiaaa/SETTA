@@ -1,0 +1,20 @@
+defaults:
+  - defaults
+  - model: cmgan
+  - override training: gan
+  - _self_
+training:
+  epochs: 50
+  checkpoint_freq: 25
+  loss: metricGAN
+  loss_weights:
+    ri: 0.1
+    mag: 0.9
+    time: 0.2
+    metric: 0.05
+data:
+  batch_size: 4
+  transforms:
+    - power_norm
+    - "TF=COMP"
+  power_compress: 0.3

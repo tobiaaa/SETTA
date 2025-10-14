@@ -1,0 +1,23 @@
+defaults:
+  - adaptation: null
+  - logs: null
+  - eval: se
+  - data: default
+  - training: default
+training:
+  grad_clip_norm: 1e-1
+  checkpoint_freq: 50
+data:
+  batch_size: 4
+  transforms:
+    - identity
+metrics:
+  - PESQ
+  - STOI
+  - Composite
+  - SSNR
+  - SISDR
+async_metrics: False
+hydra:
+  run:
+    dir: outfiles/${now:%Y-%m-%d}/${now:%H-%M-%S}

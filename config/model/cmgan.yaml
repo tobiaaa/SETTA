@@ -1,0 +1,5 @@
+defaults:
+  - defaults
+name: CMGAN
+gen_depth: 4
+fs: ${data.fs}

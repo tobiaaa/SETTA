@@ -1,0 +1,6 @@
+defaults:
+  - defaults
+name: AmplitudeMasking
+depth: 3
+n_ch: 64
+norm: layernorm

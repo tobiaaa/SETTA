@@ -1,0 +1,4 @@
+defaults:
+  - defaults
+name: SpectralSubtraction
+n_avg: 64

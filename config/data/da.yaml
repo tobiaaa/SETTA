@@ -1,0 +1,7 @@
+defaults:
+  - defaults
+  - dataset@trainset: ears
+  - dataset@testset: voicebank
+  - _self_
+batch_size: 32
+mode: crop

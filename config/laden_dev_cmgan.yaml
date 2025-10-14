@@ -1,0 +1,13 @@
+defaults:
+  - cmgan
+  - da
+  - override adaptation: laden
+  - override logs: wandb
+  - _self_
+adaptation:
+  consistency_weight: 0.01
+  weights:
+    - norm
+    - output
+model:
+  load: checkpoints/cmgan_ears.th

@@ -1,0 +1,13 @@
+name: LaDen
+foundation: WavLM
+trainset: ${data.trainset.name}
+testset: ${data.testset.name}
+lr: 5e-4
+loss_threshold: 0.05
+batch_size: 32
+ema_alpha: 0.95
+consistency_weight: 0.1
+power_temp: 2.0
+weights:
+  - norm
+  - output

@@ -1,0 +1,13 @@
+defaults:
+  - cmgan
+  - da
+  - override adaptation: remix_it
+  - override logs: wandb
+  - _self_
+adaptation:
+  weights:
+    - norm
+    - output
+model:
+  load: checkpoints/cmgan_ears.th
+

@@ -1,0 +1,11 @@
+defaults:
+  - override eval: da
+  - override data: da
+  - override logs: wandb
+metrics:
+  - PESQ
+  - STOI
+  - Composite
+  - SSNR
+  - SISDR
+async_metrics: True

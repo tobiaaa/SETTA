@@ -1,0 +1,3 @@
+hop_length: 300
+fft_length: 1200
+window: hamming

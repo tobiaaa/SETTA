@@ -1,0 +1,5 @@
+defaults:
+  - defaults
+name: Wiener
+n_filter: 257
+n_est: 1024

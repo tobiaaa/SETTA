@@ -1,0 +1,5 @@
+defaults:
+  - defaults
+  - /model@foundation: foundation
+  - /model@approximator: approximator
+name: EmbeddingApproximator

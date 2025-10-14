@@ -1,0 +1,4 @@
+defaults:
+  - defaults
+name: Emb
+save_path: ${training.save_path}

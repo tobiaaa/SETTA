@@ -1,0 +1,14 @@
+defaults:
+  - defaults
+  - model: am
+  - _self_
+training:
+  epochs: 50
+  checkpoint_freq: 25
+  loss: MSE
+data:
+  batch_size: 64
+  fs: 16_000
+  transforms:
+    - power_norm
+    - TF=MAG|PHASE

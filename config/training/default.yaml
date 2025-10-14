@@ -1,0 +1,13 @@
+name: default
+lr: 1e-3
+l2_reg: 1e-3
+lr_sched:
+  name: exp
+  gamma: auto
+  epochs: ${training.epochs}
+adam:
+  beta_1: 0.9
+  beta_2: 0.999
+loss: "MSE"
+gan_loss: False
+fs: ${data.fs}

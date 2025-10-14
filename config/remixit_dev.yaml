@@ -1,0 +1,8 @@
+defaults:
+  - am
+  - da
+  - override adaptation: remix_it
+  - override logs: wandb
+  - _self_
+model:
+  load: checkpoints/minimucs_ears.th

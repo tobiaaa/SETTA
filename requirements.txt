@@ -1,0 +1,26 @@
+einops==0.8.0
+hydra-core==1.3.2
+joblib==1.4.2
+librosa==0.10.2
+matplotlib==3.9.0
+neptune==1.12.0
+onnx2torch==1.5.15
+onnxruntime==1.19.2
+openai-whisper==20240930
+pandas==2.2.2
+pesq==0.0.4
+pyloudnorm==0.1.1
+pystoi==0.4.1
+python-dotenv==1.0.1
+requests==2.32.3
+scikit-learn==1.5.1
+scipy==1.13.1
+SRMRpy @ https://github.com/jfsantos/SRMRpy/archive/master.zip
+torch==2.3.1
+torchaudio==2.3.1
+torchvision==0.18.1
+torchmetrics==1.6.0
+torch-pesq
+tqdm==4.66.4
+transformers==4.48.3
+wandb==0.17.4

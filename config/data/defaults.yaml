@@ -1,0 +1,12 @@
+defaults:
+  - stft: 16k
+  - reverb: null
+test_batch_size: 1
+n_workers: null
+n_prefetch: 8
+fs: 16_000
+sample_length: 2.0
+shuffle: True
+transforms:
+  - identity
+power_compress: null

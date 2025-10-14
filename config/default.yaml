@@ -1,0 +1,7 @@
+defaults:
+  - defaults
+  - model: basic_cnn
+  - _self_
+training:
+  epochs: 50
+  checkpoint_freq: 25

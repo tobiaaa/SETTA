@@ -1,0 +1,9 @@
+defaults:
+  - defaults
+  - model: spectral_sub
+  - _self_
+data:
+  fs: 16_000
+  transforms:
+    - power_norm
+    - TF=MAG|PHASE
