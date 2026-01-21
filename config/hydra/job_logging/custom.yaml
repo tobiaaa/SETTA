@@ -1,0 +1,54 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    format: "[%(asctime)s][%(name)s][%(levelname)s] - %(message)s"
+    datefmt: "%y-%m-%d %H:%M:%S"
+  colorlog:
+    "()": "colorlog.ColoredFormatter"
+    format: "[%(asctime)s][%(name)s][%(log_color)s%(levelname)s%(reset)s] - %(message)s"
+    datefmt: "%H:%M:%S"
+    log_colors:
+      DEBUG: cyan
+      INFO: green
+      WARNING: yellow
+      ERROR: red
+      CRITICAL: bold_red
+  detail:
+    format: "[%(asctime)s,%(msecs)03d][%(name)s][%(levelname)s] - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  minimal:
+    format: "%(message)s"
+handlers:
+  minimal:
+    class: logging.StreamHandler
+    formatter: minimal
+    stream: ext://sys.stdout
+  minimal_file:
+    class: logging.FileHandler
+    formatter: minimal
+    filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
+  console:
+    class: logging.TqdmLoggingHandler
+    formatter: colorlog
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    formatter: detail
+    filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
+  results_file:
+    class: logging.FileHandler
+    formatter: minimal
+    filename: ${hydra.runtime.output_dir}/results.log
+root:
+  level: ${if:${oc.env:DEBUG,False},DEBUG,INFO}
+  handlers: [console, file]
+loggers:
+  summary:
+    level: INFO
+    handlers: [minimal, minimal_file]
+    propagate: False
+  results:
+    level: INFO
+    handlers: [minimal, results_file]
+    propagate: False

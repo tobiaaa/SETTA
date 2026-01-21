@@ -4,6 +4,7 @@ defaults:
   - eval: se
   - data: default
   - training: default
+  - override hydra/job_logging: custom
 training:
   grad_clip_norm: 1e-1
   checkpoint_freq: 50
