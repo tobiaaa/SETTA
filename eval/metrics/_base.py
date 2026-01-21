@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 
 import torch
@@ -6,6 +7,7 @@ SYMB_DICT = {
     'up': u'\u2191',
     'down': u'\u2193',
 }
+
 
 class Metric(ABC):
     def __init__(self, cfg, device):
@@ -64,7 +66,11 @@ class Metric(ABC):
             stds = stds[None]
 
         for name, val, std in zip(self.names(), result, stds):
-            output.append(f'{name}{SYMB_DICT[self.objective]}: {val:.4f} ± {std:.3f}')
+            if os.environ.get('STD', 'False') == 'True':
+                output.append(f'{name}{SYMB_DICT[self.objective]}: {val:.4f} ± {std:.3f}')
+            else:
+                output.append(f'{name}{SYMB_DICT[self.objective]}: {val:.4f}')
+
         return '\n'.join(output)
 
     def names(self):

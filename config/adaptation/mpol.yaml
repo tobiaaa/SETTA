@@ -1,0 +1,12 @@
+name: MPol
+lr: 5e-4
+batch_size: 8
+ema_alpha: 0.8
+sign_weight: 10.0
+wasser_weight: 1.0
+grad_norm: 0.1
+model: ${model.name}
+power_compress: ${data.power_compress}
+weights:
+  - norm
+  - output

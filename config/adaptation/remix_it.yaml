@@ -4,7 +4,7 @@ testset: ${data.testset.name}
 lr: 1e-4
 batch_size: 4
 teacher_update: 8
-alpha: 0.01
+alpha: 0.9
 weights:
   - norm
   - output

@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torchaudio
 import torchaudio.functional as AF
 from torch.utils.data import Dataset
+from torchcodec.decoders import AudioDecoder
 
 from .index import get_index
 
@@ -62,8 +63,8 @@ class EARS_DEMAND(Dataset):
 
         filename = '#'.join(clean['filename'].split('/')[-2:])
 
-        Fs_clean = torchaudio.info(clean_file).sample_rate
-        Fs_noise = torchaudio.info(noise_file).sample_rate
+        Fs_clean = AudioDecoder(clean_file).metadata.sample_rate
+        Fs_noise = AudioDecoder(noise_file).metadata.sample_rate
 
         x_clean, _ = torchaudio.load(clean_file, 
                                      num_frames=30 * Fs_clean)
