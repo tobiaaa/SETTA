@@ -1,9 +1,14 @@
 import logging
+
+from omegaconf import OmegaConf
+from tqdm import tqdm
+
+from .log_helper import LogHelper
 from .neptune_helper import Neptune
 from .wandb_helper import WandB
-from .log_helper import LogHelper
 
 logger = logging.getLogger(__file__)
+
 
 def get_logger(cfg, cfg_tot):
     if cfg.name == 'WandB':
@@ -13,12 +18,13 @@ def get_logger(cfg, cfg_tot):
     else:
         raise NameError(f'Experiment logger "{cfg.name}" unknown')
 
+
 def format_results(df, metrics):
     metric_names = sum([metric.names() for metric in metrics], [])
-    
+
     meta_columns = df.columns.to_list()
 
-    meta_columns = list(set(meta_columns) - set(metric_names) - set(['Filename']))        
+    meta_columns = list(set(meta_columns) - set(metric_names) - set(['Filename']))
     if not meta_columns:
         logger.warning('No meta columns. Skipping detailed results')
         return
@@ -26,7 +32,7 @@ def format_results(df, metrics):
     df_org = df.groupby(meta_columns).mean(numeric_only=True)
 
     return df_org
-    
+
 
 class DummyLogger:
     def __init__(self):
@@ -41,6 +47,26 @@ class DummyLogger:
 
     def log_results(self, metrics_dict):
         return
-    
+
     def log_class_code(self, method):
         return
+
+
+class TqdmLoggingHandler(logging.StreamHandler):
+    def emit(self, record):
+        try:
+            msg = self.format(record)
+            tqdm.write(msg)
+            self.flush()
+        except Exception:
+            self.handleError(record)
+
+
+logging.TqdmLoggingHandler = TqdmLoggingHandler
+
+
+def if_resolver(condition, true_val, false_val):
+    return true_val if condition.lower() == 'true' else false_val
+
+
+OmegaConf.register_new_resolver("if", if_resolver)

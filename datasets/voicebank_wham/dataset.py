@@ -6,6 +6,7 @@ import torch.nn.functional as F
 import torchaudio
 import torchaudio.functional as AF
 from torch.utils.data import Dataset
+from torchcodec.decoders import AudioDecoder
 
 from .index import get_index
 
@@ -39,12 +40,11 @@ class VoiceBankWHAM(Dataset):
         self.noise_dir = os.path.join(data_cfg.noise_path, 'high_res_wham', 'audio')
 
         self.index_df, self.noise_df = get_index(data_cfg, self.split, self.noise_dir)
-        
+
         self.return_file = False
         self.transforms = transforms
 
         self.snr = data_cfg.snr
-
 
     def __getitem__(self, index):
 
@@ -56,14 +56,14 @@ class VoiceBankWHAM(Dataset):
 
         filename = '#'.join(clean['filename'].split('/')[-2:])
 
-        Fs_clean = torchaudio.info(clean_file).sample_rate
-        Fs_noise = torchaudio.info(noise_file).sample_rate
+        Fs_clean = AudioDecoder(clean_file).metadata.sample_rate
+        Fs_noise = AudioDecoder(noise_file).metadata.sample_rate
 
-        x_clean, _ = torchaudio.load(clean_file, 
+        x_clean, _ = torchaudio.load(clean_file,
                                      num_frames=30 * Fs_clean)
         x_clean = x_clean.squeeze()
 
-        x_noise, _ = torchaudio.load(noise_file, 
+        x_noise, _ = torchaudio.load(noise_file,
                                      num_frames=30 * Fs_noise,
                                      frame_offset=noise['start'] * (Fs_noise // 16_000))
         x_noise = x_noise[0]
@@ -72,7 +72,7 @@ class VoiceBankWHAM(Dataset):
             x_clean = AF.resample(x_clean, Fs_clean, self.fs)
         if Fs_noise != self.fs:
             x_noise = AF.resample(x_noise, Fs_noise, self.fs)
-        
+
         # Truncate
         x_noise = x_noise[:x_clean.shape[0]]
         x_clean = x_clean[:x_noise.shape[0]]
