@@ -11,7 +11,7 @@ There are three main files for execution.
 `main.py` runs training and then evaluates the trained model.
 `run_eval.py` only runs the evaluation routine.
 `run_da.py` runs the adaptation and evaluation routine.
-How training and evaluation are run is configured through the configuration management system that relies on [Hydra](https://hydra.cc/)
+How training and evaluation are run is configured through the configuration management system that relies on [Hydra](https://hydra.cc/).
 To specify a configuration file, use the `-cn` flag:
 
 ```bash
@@ -27,8 +27,6 @@ To install the necessary dependencies, run
 ```bash
 pip install -r requirements.txt
 ```
-
-This installs all necessary python.
 
 ### Configuration Management
 
