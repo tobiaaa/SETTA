@@ -2,8 +2,8 @@
 
 This is the repo for the papers:
 
-- [Test-Time Adaptation for Speech Enhancement via Domain Invariant Embedding Transformation](https://arxiv.org/abs/2509.04280).
-- [Test-Time Adaptation for Speech Enhancement via Mask Polarization](https://arxiv.org/abs/2601.14770).
+- [Test-Time Adaptation for Speech Enhancement via Domain Invariant Embedding Transformation](https://ieeexplore.ieee.org/abstract/document/11359505).
+- [Test-Time Adaptation for Speech Enhancement via Mask Polarization](https://ieeexplore.ieee.org/document/11464881).
 
 ## Usage
 
