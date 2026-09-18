@@ -18,6 +18,9 @@ class ModelRegistry:
         cls._available[cls_name] = new_cls
 
     def __getitem__(self, item):
+        from .util import replay_warnings
+        replay_warnings()
+
         model_name, cfg = item
         if model_name not in self._available:
             raise ValueError(

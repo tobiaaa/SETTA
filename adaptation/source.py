@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class Source(nn.Module):
-    def __init__(self, cfg, model, recon):
+    def __init__(self, cfg, model, recon, device):
         super().__init__()
         self.model = model
         self.recon_fn = recon.reconstruct

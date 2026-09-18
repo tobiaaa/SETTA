@@ -1,0 +1,4 @@
+name: am_pesq_const
+d: { slope: 0.0, icpt: -0.0034, min: -0.1, max: 0.5, log: false }
+s: { slope: 0.0, icpt: 0.4192, min: 0.02, max: 1.5, log: true }
+a: { slope: 0.0, icpt: 1.1593, min: 0.1, max: 30.0, log: true }

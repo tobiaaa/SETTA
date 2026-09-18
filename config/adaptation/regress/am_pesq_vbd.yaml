@@ -1,0 +1,4 @@
+name: am_pesq_vbd
+d: { slope: 0.6257, icpt: -0.1134, min: -0.1, max: 0.5, log: false }
+s: { slope: -1.5896, icpt: 0.3747, min: 0.02, max: 1.5, log: true }
+a: { slope: -2.6642, icpt: 2.9437, min: 0.1, max: 30.0, log: true }

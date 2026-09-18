@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class RemixIT(nn.Module):
-    def __init__(self, cfg, model, transforms):
+    def __init__(self, cfg, model, transforms, device):
         super().__init__()
         self.student = model
         self.transforms = transforms

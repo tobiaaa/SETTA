@@ -51,8 +51,16 @@ class EARSWHAM(Dataset):
         self.return_file = False
         self.transforms = transforms
 
+        if os.environ.get('SE_FIX_SHUFFLE', 'False') == 'True':
+            gen = torch.Generator().manual_seed(123)
+            self.index_map = torch.randperm(len(self), generator=gen)
+            logger.info('Using fixed shuffle')
+        else:
+            self.index_map = torch.arange(0, len(self))
+
     def __getitem__(self, index):
-        
+        index = self.index_map[index].item()
+
         clean_file = self.files[index]
         noisy_file = self.get_noisy(clean_file)
 

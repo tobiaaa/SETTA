@@ -17,7 +17,7 @@ class WandB(LogHelper):
         self.enabled = os.environ.get('WANDB_ENABLED', default='False') == 'True'
 
         if not self.enabled:
-            logger.warning('Not logging to weights&biases')
+            logger.debug('Not logging to weights&biases')
             return
 
         os.environ['WANDB_SILENT'] =  'True'

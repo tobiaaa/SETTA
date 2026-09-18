@@ -1,0 +1,4 @@
+name: am_pesq_lin
+d: { slope: 0.0535, icpt: -0.0097, min: -0.1, max: 0.5, log: false }
+s: { slope: -2.1426, icpt: 1.7641, min: 0.0, max: 1.5, log: false }
+a: { slope: -4.0514, icpt: 6.0363, min: 0.1, max: 30.0, log: false }

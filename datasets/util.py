@@ -5,7 +5,8 @@ import torchaudio
 from torch import nn
 from torch.utils.data import DataLoader
 
-from . import dns, ears, ears_demand, transforms, voicebank, voicebank_wham
+from . import (daps_tau, dns, ears, ears_demand, transforms, voicebank,
+               voicebank_wham)
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,16 @@ def _get_dataloader(data_cfg, cfg, split, transforms):
                                  dataset,
                                  split=split)
 
+    elif data_cfg.name == 'DAPS_TAU':
+        dataset = daps_tau.DAPS_TAU(cfg,
+                                    data_cfg,
+                                    split=split,
+                                    transforms=transforms)
+
+        dataloader = _dataloader(cfg,
+                                 dataset,
+                                 split=split)
+
     else:
         raise ValueError(f'Dataset {data_cfg.name} unknown')
 
@@ -103,7 +114,7 @@ def _dataloader(cfg, dataset, split='train'):
 
     batch_size = cfg.batch_size if split == 'train' else cfg.test_batch_size
     shuffle = cfg.shuffle and split == 'train'
-    if os.environ.get('FORCE_SHUFFLE', 'False') == 'True':
+    if os.environ.get('SE_FORCE_SHUFFLE', 'False') == 'True':
         logger.info('Forcing data shuffle')
         shuffle = True
     dataloader = DataLoader(dataset,

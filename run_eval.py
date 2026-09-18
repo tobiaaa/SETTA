@@ -8,7 +8,7 @@ import torch
 
 import eval
 import util
-from adaptation.util import get_adaptation
+from adaptation import get_adaptation
 from datasets import get_dataloader
 from model import ModelRegistry
 
@@ -32,9 +32,10 @@ def main(cfg):
         test_loader.dataset.return_meta=True
 
     # Setup Adaptation
-    adaptation = get_adaptation(cfg, 
+    adaptation = get_adaptation(cfg,
                                 model,
-                                test_loader.dataset.transforms.reconstruct)
+                                test_loader.dataset.transforms,
+                                device)
     if adaptation is not None:
         adaptation.to(device)
 
@@ -50,6 +51,7 @@ def main(cfg):
     # Run Evaluation
     evaluator.run(save=True)
 
+    results_logger = logging.getLogger('results')
     if cfg.eval.detailed_results:
         if hasattr(test_loader.dataset, 'format_results'):
             format_df = test_loader.dataset.format_results(evaluator.metrics_df)
@@ -58,12 +60,13 @@ def main(cfg):
         
         if format_df is not None:
             with pd.option_context('display.float_format', '{:,.3f}'.format):
-                print(format_df)
+                results_logger.info(repr(format_df))
         
-    print(evaluator)
+    results_logger.info(repr(evaluator))
 
 
 if __name__ == '__main__':
     dotenv.load_dotenv()
+    util.check_env_vars()
     os.environ['MODE'] = 'EVAL'
     main()

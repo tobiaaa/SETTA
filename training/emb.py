@@ -2,7 +2,8 @@ import logging
 import os
 
 import torch
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ class EmbTrainer:
 
     @torch.no_grad()
     def run(self):
-        iterator = tqdm(self.dataset) 
+        iterator = ProgressIterator(self.dataset) 
         for batch, ((x_clean_raw, x_clean), (x_noisy_raw, x_noisy, recon)) in enumerate(iterator):
             x_clean, x_noisy = x_clean.to(self.device), x_noisy.to(self.device)
             self.model(x_clean, x_noisy)

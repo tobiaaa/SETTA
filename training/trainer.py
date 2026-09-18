@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 from .loss import get_loss
 from .util import get_lr_sched
@@ -46,8 +47,8 @@ class Trainer:
         self.model.train()
         step = 0
         for epoch in range(self.cfg.training.epochs):
-            iterator = tqdm(self.dataset,
-                            desc=f'Epoch: {epoch+1}/{self.cfg.training.epochs}')
+            iterator = ProgressIterator(self.dataset,
+                                        desc=f'Epoch: {epoch+1}/{self.cfg.training.epochs}')
             for batch, ((x_clean_raw, x_clean), (x_noisy_raw, x_noisy, recon)) in enumerate(iterator):
                 x_clean, x_noisy = x_clean.to(self.device), x_noisy.to(self.device)
                 x_denoised = self.model(x_noisy)

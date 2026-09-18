@@ -1,0 +1,4 @@
+name: cmgan_pesq_lin
+d: { slope: -0.1930, icpt: 0.1481, min: -0.1, max: 0.5, log: false }
+s: { slope: 0.0784, icpt: 0.9658, min: 0.0, max: 1.5, log: false }
+a: { slope: -29.0323, icpt: 21.7180, min: 0.1, max: 100.0, log: false }

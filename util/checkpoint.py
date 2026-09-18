@@ -11,9 +11,9 @@ class CheckpointManager:
     def __init__(self, cfg):
         self.checkpoint_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
 
-        self.enable = os.environ.get('TRAINING_RUN', default='False') == 'True'
+        self.enable = os.environ.get('SE_TRAINING_RUN', default='False') == 'True'
         if not self.enable:
-            logger.info('Not Saving checkpoints. Run "export TRAINING_RUN=True"')
+            logger.info('Not Saving checkpoints. Run "export SE_TRAINING_RUN=True"')
 
         self.freq = cfg.checkpoint_freq
 

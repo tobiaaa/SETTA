@@ -61,6 +61,13 @@ class DNS(Dataset):
         self.return_file = False
         self.transforms = transforms
 
+        if os.environ.get('SE_FIX_SHUFFLE', 'False') == 'True':
+            gen = torch.Generator().manual_seed(123)
+            self.index_map = torch.randperm(len(self), generator=gen)
+            logger.info('Using fixed shuffle')
+        else:
+            self.index_map = torch.arange(0, len(self))
+
     def get_lang_files(self, language):
         lang_dir = os.path.join(self.top_dir, LANGUAGE_DICT[language])
         clean_dir = os.path.join(lang_dir, 'clean')
@@ -71,7 +78,7 @@ class DNS(Dataset):
             id = noisy_file.rstrip('.wav').split('_')[-1]
             clean_file = f'clean_fileid_{id}.wav'
             if not os.path.exists(os.path.join(clean_dir, clean_file)):
-                print('Clean file does not exist')
+                logger.warning('Clean file does not exist')
                 continue
             files.append((os.path.join(clean_dir, clean_file),
                           os.path.join(noisy_dir, noisy_file)))
@@ -81,7 +88,8 @@ class DNS(Dataset):
         return files
 
     def __getitem__(self, index):
-        
+        index = self.index_map[index].item()
+
         clean_file, noisy_file = self.files[index]
 
         x_clean, Fs_clean = torchaudio.load(clean_file)

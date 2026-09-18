@@ -9,13 +9,13 @@ logger = logging.getLogger(__name__)
 
 
 class MPol(nn.Module):
-    def __init__(self, cfg, model, recon):
+    def __init__(self, cfg, model, recon, device):
         super().__init__()
         self.model = model
 
         if cfg.model in ['CMGAN', 'CMGANLite', 'MPSENet', 'CMGANTest', 'MPSENetTest']:
             self.get_norm_fn = _norm_comp
-        elif cfg.model in ['MiniMUCS']:
+        elif cfg.model in ['AmplitudeMasking']:
             self.get_norm_fn = _norm_slice
         else:
             logger.warning('Unknown model, assuming norm via slice')

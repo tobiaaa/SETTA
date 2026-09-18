@@ -22,3 +22,5 @@ for file in _all:
                     __all__.append(cls)
     except ImportError as e:
         _logger.warning(f'Directory "{module}" could not be imported; Ignoring directory')
+        if os.environ.get('SE_DEBUG', 'False') == 'True':
+            _logger.warning(e.msg)

@@ -1,0 +1,4 @@
+name: am_visqol
+d: { slope: -2.4423, icpt: 0.1543, min: -1.0, max: 0.5, log: false }
+s: { slope: -7.5246, icpt: 1.4951, min: 0.02, max: 1.5, log: true }
+a: { slope: 1.9919, icpt: 0.7857, min: 0.1, max: 100.0, log: true }
