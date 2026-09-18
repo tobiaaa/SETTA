@@ -30,22 +30,23 @@ def main(cfg):
     test_loader.dataset.return_file = True
 
     # Setup Adaptation
-    adaptation = get_adaptation(cfg, 
+    adaptation = get_adaptation(cfg,
                                 model,
-                                test_loader.dataset.transforms)
+                                test_loader.dataset.transforms,
+                                device)
     adaptation.to(device)
-    
+
     # Setup logger
     experiment_logger = util.get_logger(cfg.logs, cfg)
     experiment_logger.log_class_code(adaptation)
 
     # Setup Evaluation
     metrics = eval.get_metrics(cfg, device)
-    evaluator = eval.get_evaluator(cfg, 
-                                   model, 
-                                   test_loader, 
-                                   adaptation, 
-                                   metrics, 
+    evaluator = eval.get_evaluator(cfg,
+                                   model,
+                                   test_loader,
+                                   adaptation,
+                                   metrics,
                                    device,
                                    experiment_logger)
 

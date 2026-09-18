@@ -17,7 +17,7 @@ class Trainer:
             model (nn.Module): Model
             dataset (Iterable): torch DataLoader object
             chkpt_mngr (CheckpointManager): CheckpointManager object
-            log_mngr: Logging manager (e.g. Neptune wrapper)
+            log_mngr: Logging manager (e.g. WandB wrapper)
             device (torch.device): CUDA/CPU
         """
         self.cfg = cfg

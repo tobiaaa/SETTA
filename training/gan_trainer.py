@@ -17,7 +17,7 @@ class GanTrainer:
             model (nn.Module): Must implement `generate()` and `discriminate()`
             dataset (Iterable): Training dataloader
             chkpt_mngr (CheckpointManager): CheckpointManager object
-            log_mngr: Logging manager (e.g. Neptune wrapper)
+            log_mngr: Logging manager (e.g. WandB wrapper)
             device (torch.device): CUDA/CPU
         """
         self.cfg = cfg

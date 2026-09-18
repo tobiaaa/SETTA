@@ -4,7 +4,6 @@ from omegaconf import OmegaConf
 from tqdm import tqdm
 
 from .log_helper import LogHelper
-from .neptune_helper import Neptune
 from .wandb_helper import WandB
 
 logger = logging.getLogger(__file__)
@@ -13,8 +12,6 @@ logger = logging.getLogger(__file__)
 def get_logger(cfg, cfg_tot):
     if cfg.name == 'WandB':
         return WandB(cfg, cfg_tot)
-    elif cfg.name == 'Neptune':
-        return Neptune(cfg, cfg_tot)
     else:
         raise NameError(f'Experiment logger "{cfg.name}" unknown')
 

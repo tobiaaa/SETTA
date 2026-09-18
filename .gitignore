@@ -724,7 +724,6 @@ outfiles/
 !outputs/cleanup.sh
 test/
 .env
-.neptune/
 !config/logs/
 .envrc
 .wandb/
