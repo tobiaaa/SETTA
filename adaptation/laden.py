@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 torch.backends.cuda.cufft_plan_cache[0].max_size = 0
 
 class LaDen(nn.Module):
-    def __init__(self, cfg, model, recon):
+    def __init__(self, cfg, model, recon, device):
         super().__init__()
         self.model = model
         self.foundation = _get_model(cfg.foundation)

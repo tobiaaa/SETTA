@@ -1,0 +1,5 @@
+[
+  ".*mismatched key_padding_mask and attn_mask.*",
+  ".*Error detected in .*Backward.*",
+  ".*may slow down the speed.*"
+]

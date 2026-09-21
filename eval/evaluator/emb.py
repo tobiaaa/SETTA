@@ -2,7 +2,8 @@ import logging
 
 import hydra
 import torch
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ class EmbeddingEvaluator:
     @torch.no_grad()
     def run(self, save=False):
 
-        iterator = tqdm(self.dataset, desc='Evaluation')
+        iterator = ProgressIterator(self.dataset, desc='Evaluation')
         for i, (clean, noisy, *meta) in enumerate(iterator):
             x_clean_raw, x_clean = clean
             x_noisy_raw, x_noisy, recon = noisy

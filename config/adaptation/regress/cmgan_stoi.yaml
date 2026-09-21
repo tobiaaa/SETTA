@@ -1,0 +1,4 @@
+name: cmgan_stoi
+d: { slope: -0.0780, icpt: 0.1600, min: -1.0, max: 0.5, log: false }
+s: { slope: 0.4583, icpt: 0.9783, min: -0.5, max: 1.5, log: false }
+a: { slope: -5.1126, icpt: 3.4176, min: 0.1, max: 100.0, log: true }

@@ -4,7 +4,8 @@ import os
 import hydra
 import torch
 import torchaudio
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 from .async_metric_manager import AsyncMetricManager
 from .metric_manager import MetricManager
@@ -53,7 +54,7 @@ class DAEvaluator:
         self.dataset.dataset.return_file = True
         self.dataset.dataset.return_text = True
 
-        iterator = tqdm(self.dataset, desc='Evaluation')
+        iterator = ProgressIterator(self.dataset, desc='Evaluation')
         for i, (clean, noisy, meta) in enumerate(iterator):
             x_clean_raw, x_clean = clean
             x_noisy_raw, x_noisy, recon = noisy

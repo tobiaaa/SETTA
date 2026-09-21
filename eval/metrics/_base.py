@@ -65,10 +65,11 @@ class Metric(ABC):
         if stds.shape == torch.Size([]):
             stds = stds[None]
 
-        for name, val, std in zip(self.names(), result, stds):
-            if os.environ.get('STD', 'False') == 'True':
+        if os.environ.get('SE_DEBUG', 'False') == 'True':
+            for name, val, std in zip(self.names(), result, stds):
                 output.append(f'{name}{SYMB_DICT[self.objective]}: {val:.4f} ± {std:.3f}')
-            else:
+        else:
+            for name, val, std in zip(self.names(), result, stds):
                 output.append(f'{name}{SYMB_DICT[self.objective]}: {val:.4f}')
 
         return '\n'.join(output)

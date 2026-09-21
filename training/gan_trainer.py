@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 from .loss import get_loss
 from .util import get_lr_sched
@@ -17,7 +18,7 @@ class GanTrainer:
             model (nn.Module): Must implement `generate()` and `discriminate()`
             dataset (Iterable): Training dataloader
             chkpt_mngr (CheckpointManager): CheckpointManager object
-            log_mngr: Logging manager (e.g. Neptune wrapper)
+            log_mngr: Logging manager (e.g. WandB wrapper)
             device (torch.device): CUDA/CPU
         """
         self.cfg = cfg
@@ -49,8 +50,8 @@ class GanTrainer:
         log_dict = {}
         step = 0
         for epoch in range(self.cfg.training.epochs):
-            iterator = tqdm(self.dataset,
-                            desc=f'Epoch: {epoch+1}/{self.cfg.training.epochs}')
+            iterator = ProgressIterator(self.dataset,
+                                        desc=f'Epoch: {epoch+1}/{self.cfg.training.epochs}')
 
             for batch, ((x_clean_raw, x_clean), (x_noisy_raw, x_noisy, recon)) in enumerate(iterator):
                 x_clean, x_noisy = x_clean.to(self.device), x_noisy.to(self.device)

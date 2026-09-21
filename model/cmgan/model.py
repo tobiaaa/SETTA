@@ -19,12 +19,17 @@ class CMGAN(nn.Module):
         self.discriminator = Discriminator(16)
 
         self.return_mask = False
+        self.return_parts = False
 
     def forward(self, x):
         return self.generate(x)
 
     def generate(self, x):
         x = x.transpose(2, 3)
+        if self.return_parts:
+            mask, mag, phase, comp = self.generator(x, return_parts=True)
+            return (mask.transpose(2, 3)[:, 0], mag.transpose(2, 3)[:, 0],
+                    phase.transpose(2, 3)[:, 0], comp.transpose(2, 3))
         if self.return_mask:
             (gen_r, gen_i), mask = self.generator(x, self.return_mask)
             gen_r, gen_i = gen_r.transpose(2, 3), gen_i.transpose(2, 3)

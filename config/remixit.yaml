@@ -5,4 +5,4 @@ defaults:
   - override logs: wandb
   - _self_
 model:
-  load: checkpoints/minimucs_ears.th
+  load: checkpoints/am_ears.th

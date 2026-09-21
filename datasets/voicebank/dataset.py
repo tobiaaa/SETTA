@@ -1,3 +1,4 @@
+import logging
 import os
 
 import torch
@@ -10,6 +11,8 @@ SUFFIX_DICT = {
     'train': ('clean_trainset_28spk_wav', 'noisy_trainset_28spk_wav', 'trainset_28spk_txt'),
     'test': ('clean_testset_wav', 'noisy_testset_wav', 'testset_txt')
 }
+
+logger = logging.getLogger(__name__)
 
 
 class VoiceBankDemand(Dataset):
@@ -45,9 +48,17 @@ class VoiceBankDemand(Dataset):
         self.meta_data = None
         self.transforms = transforms
 
+        if os.environ.get('SE_FIX_SHUFFLE', 'False') == 'True':
+            gen = torch.Generator().manual_seed(123)
+            self.index_map = torch.randperm(len(self), generator=gen)
+            logger.info('Using fixed shuffle')
+        else:
+            self.index_map = torch.arange(0, len(self))
+
         self.gen = torch.Generator()
 
     def __getitem__(self, index):
+        index = self.index_map[index].item()
 
         file = self.files[index]
 

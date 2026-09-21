@@ -5,7 +5,8 @@ import hydra
 import pandas as pd
 import torch
 import torchaudio
-from tqdm import tqdm
+
+from util import ProgressIterator
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +44,7 @@ class SEEvaluator:
 
         self.dataset.dataset.return_file = True
 
-        iterator = tqdm(self.dataset, desc='Evaluation')
+        iterator = ProgressIterator(self.dataset, desc='Evaluation')
         self.model.eval()
         for i, (clean, noisy, meta) in enumerate(iterator):
             x_clean_raw, x_clean = clean

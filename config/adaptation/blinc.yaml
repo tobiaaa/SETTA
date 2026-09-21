@@ -1,0 +1,14 @@
+defaults:
+  - regress: ???
+name: BLINC
+model: ${model.name}
+power_compress: ${data.power_compress}
+fs: ${data.fs}
+mode: deploy
+cache_path: null
+max_length: null
+blind:
+  tau_psd: 0.072
+  tau_ph1: 0.152
+  xi_opt_db: 15.0
+  prior_ratio: 1.0

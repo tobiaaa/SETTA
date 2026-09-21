@@ -13,7 +13,7 @@ formatters:
       INFO: green
       WARNING: yellow
       ERROR: red
-      CRITICAL: bold_red
+      CRITICAL: bold_black,bg_red
   detail:
     format: "[%(asctime)s,%(msecs)03d][%(name)s][%(levelname)s] - %(message)s"
     datefmt: "%Y-%m-%d %H:%M:%S"
@@ -41,7 +41,7 @@ handlers:
     formatter: minimal
     filename: ${hydra.runtime.output_dir}/results.log
 root:
-  level: ${if:${oc.env:DEBUG,False},DEBUG,INFO}
+  level: ${if:${oc.env:SE_DEBUG,False},DEBUG,INFO}
   handlers: [console, file]
 loggers:
   summary:

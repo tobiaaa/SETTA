@@ -1,6 +1,20 @@
+import logging
+
 import torch.nn as nn
 
 from .registry import ModelRegistry
+
+_logger = logging.getLogger('model')
+
+_import_warnings = []
+
+
+def replay_warnings():
+    global _import_warnings
+    for module, msg in _import_warnings:
+        _logger.debug(f'Directory "{module}" could not be imported; Ignoring directory: {msg}')
+
+    _import_warnings = []
 
 
 @ModelRegistry.register

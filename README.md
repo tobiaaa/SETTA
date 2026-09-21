@@ -4,6 +4,7 @@ This is the repo for the papers:
 
 - [Test-Time Adaptation for Speech Enhancement via Domain Invariant Embedding Transformation](https://ieeexplore.ieee.org/abstract/document/11359505).
 - [Test-Time Adaptation for Speech Enhancement via Mask Polarization](https://ieeexplore.ieee.org/document/11464881).
+- [BLINC: Blind Calibration For Training-Free Speech Enhancement Adaptation](https://arxiv.org/abs/2609.21898)
 
 ## Usage
 
@@ -100,5 +101,25 @@ Overwrite the configuration key `model.load` with a path that points to a saved 
 - EARS & WHAM: Available here: [Link](https://github.com/sp-uhh/ears_benchmark). In the paper V1 was used.
 - DNS: Available here: [Link](https://github.com/microsoft/DNS-Challenge/tree/v4dnschallenge_ICASSP2022). Disable synthetic RIRs to reproduce paper results.
 - DEMAND: Available here: [Link](https://dcase-repo.github.io/dcase_datalist/datasets/scenes/demand.html)
+- DAPS + TAU: Clean speech from DAPS ([Link](https://zenodo.org/records/4660670)) mixed with TAU Urban Acoustic Scenes 2019 noise ([Link](https://zenodo.org/records/2589280)) at 0-20dB SNR. Set `daps_path` and `tau_path` in `config/data/dataset/daps_tau.yaml`; the pre-mixed dataset is created at `path` on first use.
 
 It is recommended to downsample these datasets to 16kHz using `ffmpeg`.
+
+### Environment Variables
+
+All flags use the `SE_` prefix. Unknown `SE_*` variables trigger a warning at startup to catch typos.
+
+| Variable             | Default | Description                                                    |
+| -------------------- | ------- | -------------------------------------------------------------- |
+| `SE_TRAINING_RUN`    | `False` | Enable checkpoint saving during training                       |
+| `SE_DEBUG`           | `False` | Debug logging, anomaly detection, and ± std in metric output   |
+| `SE_FORCE_SHUFFLE`   | `False` | Force shuffling of the data loader                             |
+| `SE_FIX_SHUFFLE`     | `False` | Fixed-seed data ordering (reproducible without shuffling)      |
+| `SE_FIXED_START`     | `False` | Crop training segments from offset 0 instead of a random start |
+| `SE_EMB_DIR`         | —       | Directory for cached embeddings                                |
+| `SE_FORCE_TQDM`      | `False` | Force tqdm progress bars in non-interactive environments       |
+| `SE_DISABLE_TQDM`    | `False` | Disable tqdm and log progress lines instead                    |
+| `SE_PROG_INFO_F`     | `50`    | Progress-line info frequency in steps (non-tqdm mode)          |
+| `SE_PROG_TIME_F`     | `50`    | Progress-line timing frequency in steps (non-tqdm mode)        |
+| `SE_PROG_TIME_ALPHA` | `0.8`   | EMA factor of the per-step time estimate                       |
+| `WANDB_ENABLED`      | `False` | Enable Weights & Biases experiment logging                     |

@@ -173,7 +173,7 @@ class TSCNet(nn.Module):
         )
         self.complex_decoder = ComplexDecoder(num_channel=num_channel)
 
-    def forward(self, x, return_mask=False):
+    def forward(self, x, return_mask=False, return_parts=False):
         mag = torch.sqrt(x[:, 0, :, :] ** 2 + x[:, 1, :, :] ** 2).unsqueeze(1)
         noisy_phase = torch.angle(
             torch.complex(x[:, 0, :, :], x[:, 1, :, :])
@@ -184,9 +184,12 @@ class TSCNet(nn.Module):
         out = self.TSCB(out)
 
         mask = self.mask_decoder(out)
-        out_mag = mask * mag
-
         complex_out = self.complex_decoder(out)
+
+        if return_parts:
+            return mask, mag, noisy_phase, complex_out
+
+        out_mag = mask * mag
         mag_real = out_mag * torch.cos(noisy_phase)
         mag_imag = out_mag * torch.sin(noisy_phase)
         final_real = mag_real + complex_out[:, 0, :, :].unsqueeze(1)

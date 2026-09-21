@@ -22,14 +22,17 @@ class AmplitudeMasking(nn.Module):
         self.output_block = modules.OutputBlock()
 
         self.return_mask = False
-
+        self.return_parts = False
 
     def forward(self, x):
         mag, phase = x[:, 0], x[:, 1]
         x = self.input_block(mag)
         x = self.res_blocks(x)
         x = self.output_block(x)
-    
+
+        if self.return_parts:
+            return x, mag, phase, None
+
         x_mag = mag * x
 
         mag_real = x_mag * torch.cos(phase)

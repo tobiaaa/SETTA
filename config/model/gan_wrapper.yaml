@@ -1,4 +1,4 @@
 defaults:
   - defaults
-  - /model@model: minimucs
+  - /model@model: am
 name: GANWrapper

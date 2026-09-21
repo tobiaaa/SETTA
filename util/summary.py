@@ -19,8 +19,11 @@ def summary(model, depth=-1):
 
     root = build_tree(state_dict, name)
 
-    print("Model Summary:")
-    root.print_sub(root=True, max_depth=depth)
+    output = "Model Summary:"
+    output += root.print_sub(root=True, max_depth=depth)
+
+    summary_logger = logging.getLogger('summary')
+    summary_logger.info(output)
 
 
 class Node:
@@ -31,19 +34,24 @@ class Node:
 
     def print_sub(self, depth=0, indent=0, max_depth=-1, root=False):
         indent_str = '\t' * indent
+        output = ""
         if not root:
-            print(indent_str, f'{self.name}: {self.params}')
+            output += '\n' + indent_str
+            output += f'{self.name}: {self.params:,}'
             indent += 1
 
         if depth == max_depth:
-            return
+            return output
 
         for child in self.children.values():
-            child.print_sub(depth + 1, indent, max_depth)
+            output += child.print_sub(depth + 1, indent, max_depth)
 
         if root:
-            print('---')
-            print(indent_str, f'{self.name}: {self.params}')
+            output += '\n---\n'
+            output += indent_str
+            output += f'{self.name}: {self.params:,}'
+
+        return output
 
 
 def build_tree(state_dict, root_name):
